@@ -1,9 +1,26 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+const useStyles = makeStyles({
+  table: {
+      minWidth: 650,
+  },
+});
 
 function App() {
-  let loading = true;
+  const classes = useStyles();
+
+  const [loading, setLoading] = useState(true);
+  const [tableItems, setTableItems] = useState([])
 
   useEffect(() => {
     fetch('/table', {
@@ -12,28 +29,38 @@ function App() {
         'Access-Control-Allow-Origin':'*'
       }
     }).then(response => response.json())
-    .then(tableItems => {
+    .then(items => {
+      setTableItems(items);
       console.log(tableItems);
-      loading = false;
+      setLoading(false);
     });
-  });
+  }, []);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+          <TableContainer component={Paper}>
+                    <Table className={classes.table} aria-label="Товары">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Книга</TableCell>
+                                <TableCell align="right">Количество соавторов</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {loading ? null
+                         : tableItems.map(item => (
+                            <TableRow key={item.name}>
+                                <TableCell component="th" scope="row">
+                                    {item.name}
+                                </TableCell>
+                                <TableCell align="right">{item.authors.length}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+      </div>
     </div>
   );
 }
