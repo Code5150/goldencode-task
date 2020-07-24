@@ -45,18 +45,7 @@ const authorSchema = new mongoose.Schema({
 const Books = mongoose.model(BOOKS_COLLECTION, bookSchema);
 const Authors = mongoose.model(AUTHORS_COLLECTION, authorSchema);
 
-/*
-app.get('/books', (req, res) => {
-    console.log(BOOKS_COLLECTION);
-    Books.find({}, (err, docs) => {
-        if (err) console.log(err);
-        else {
-            res.json(docs);
-        } 
-    });
-});
-*/
-
+//Defining method
 app.get('/table', (req, res) => {
     console.log(BOOKS_COLLECTION);
     Books.find({'authors.2': { "$exists": true }}, (err, docs) => {
