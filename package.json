@@ -4,16 +4,27 @@
   "description": "Тестовое задание для компании \"Золотой код\"",
   "main": "server.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Code5150/goldencode-task.git"
+    "url": "https://github.com/Code5150/goldencode-task.git"
   },
   "author": "Code5150",
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/Code5150/goldencode-task/issues"
   },
-  "homepage": "https://github.com/Code5150/goldencode-task#readme"
+  "homepage": "https://github.com/Code5150/goldencode-task#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.25"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
