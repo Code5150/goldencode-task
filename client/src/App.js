@@ -31,7 +31,6 @@ function App() {
     }).then(response => response.json())
     .then(items => {
       setTableItems(items);
-      console.log(tableItems);
       setLoading(false);
     });
   }, []);
